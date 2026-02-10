@@ -6,13 +6,14 @@ from data import ORDER_DATA_1, ORDER_DATA_2, ORDER_DATA_3, ORDER_DATA_4
 @allure.suite('Проверки создания заказа c черным цветом, серым цветом, обоими цветами и не выбрав цвет')
 class TestOrderCreate:
     
-    # Параметризация для заказа с двумя тестовыми наборами данных
+    # Параметризация для заказа с разными тестовыми наборами данных
     @pytest.mark.parametrize(
             "order_data", [ORDER_DATA_1, ORDER_DATA_2, ORDER_DATA_3, ORDER_DATA_4],
             ids = ['black', 'grey', 'both', 'none']
             )
 
-    @allure.step('Проверка создания заказа с двумя наборами данных')
+    @allure.title('Проверка создания заказа с разными наборами данных')
+    @allure.description('Проверяем поочередно создание заказа, выбрав: 1) черный цвет, 2) серый цвет, 3) оба цвета, 4) ни один из цветов')
     def test_create_order_with_test_data(self, order_data):
         
         response_data, status_code = OrderMethods().create_order(order_data)
@@ -23,7 +24,7 @@ class TestOrderCreate:
 
 
 
-    @allure.step('Проверка получения списка заказов')
+    @allure.title('Проверка получения списка заказов')
     def test_get_orders_list_basic(self):
         
         response_data, status_code = OrderMethods().get_orders_list()

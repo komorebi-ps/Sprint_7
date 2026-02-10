@@ -4,16 +4,11 @@ import random
 import string
 from urls import BASE_URL, COURIER_URL
 from data import HEADERS
+from helpers import generate_random_string
 import allure
 
 
 class CourierCreateMethods:
-    
-    def generate_random_string(self, length):
-
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        return random_string
     
     @allure.step('Создаем нового курьера c рандомными данными и возвращаем логин+пароль')
     def register_new_courier_and_return_login_password(self):
@@ -22,9 +17,9 @@ class CourierCreateMethods:
         login_pass = []
 
         # генерируем логин, пароль и имя курьера
-        login = self.generate_random_string(10)
-        password = self.generate_random_string(10)
-        first_name = self.generate_random_string(10)
+        login = generate_random_string(10)
+        password = generate_random_string(10)
+        first_name = generate_random_string(10)
 
         # собираем тело запроса
         payload = {
@@ -43,7 +38,7 @@ class CourierCreateMethods:
             login_pass.append(first_name)
 
         # возвращаем список
-        return login_pass
+        return login_pass, response.json(), response.status_code
     
 
     @allure.step('Создаем курьера')
