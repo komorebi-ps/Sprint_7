@@ -9,7 +9,7 @@ from helpers import generate_random_string
 class TestCourierCreate:
     
 
-    @allure.title('Проверка возможности создания курьера')
+    @allure.title('Проверка возможности создания курьера и получения ответа {"ok":true}')
     def test_courier_can_be_created(self):
         
         # Создаем курьера
@@ -34,7 +34,7 @@ class TestCourierCreate:
     @allure.title('Проверка невозможности создания двух одинаковых курьеров')
     def test_cant_create_two_identical_couriers(self):
         
-        # Создаем первого курьера с конкретными данными
+        # Создаем первого курьера 
         login = "test_duplicate_login"
         password = "test_password"
         first_name = "Courier"
@@ -45,7 +45,6 @@ class TestCourierCreate:
             "firstName": first_name
         }
         
-        # Создаем первого курьера
         first_response, first_status = CourierCreateMethods().create_courier(courier_data)
         
         # Пытаемся создать второго курьера с такими же данными
@@ -68,7 +67,7 @@ class TestCourierCreate:
     
 
 
-    @allure.title('Проверка создания курьера со всеми обязательными полями')
+    @allure.title('Проверка создания курьера со всеми обязательными полями но без необязательного')
     def test_create_courier_with_required_fields_only(self):
 
         response_data, status_code = CourierCreateMethods().create_courier(COURIER_DATA_WITHOUT_FIRSTNAME)
@@ -96,6 +95,7 @@ class TestCourierCreate:
     )
 
     @allure.title('Проверка получения ошибки при попытке создания курьера без обязательного поля')
+    @allure.description('Поочередно проверяем получение ошибки при создании курьера сначала без логина, потом без пароля')
     def test_create_courier_without_required_field_fails(self, test_data, description):
         
         response_data, status_code = CourierCreateMethods().create_courier(test_data)

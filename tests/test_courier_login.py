@@ -7,7 +7,7 @@ from data import LOGIN_DATA_WITHOUT_LOGIN, LOGIN_DATA_WITHOUT_PASSWORD
 @allure.suite('Проверки на авторизацию курьеров')
 class TestCourierLogin:
     
-    @allure.title('Проверка авторизации')
+    @allure.title('Проверка авторизации и получения id в теле ответа')
     def test_courier_can_login(self):
         
         # Создаем курьера
@@ -82,7 +82,7 @@ class TestCourierLogin:
             CourierCreateMethods().delete_courier(login_response['id'])
 
 
-    @allure.title('Проверка получения ошибке при попытке авторизации под не существующим пользователем')
+    @allure.title('Проверка получения ошибки при попытке авторизации под не существующим пользователем')
     def test_nonexistent_user_returns_error(self):
 
         nonexistent_user = {
